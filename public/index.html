@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - FakeChat</title>
+    <style>
+        :root {
+            --primary-color: #ff3333;
+            --primary-dark: #cc0000;
+            --primary-darker: #990000;
+            --background-dark: #1a1a1a;
+            --background-darker: #0d0d0d;
+            --text-light: #f2f2f2;
+            --text-gray: #b3b3b3;
+            --input-bg: #262626;
+            --input-border: #404040;
+            --error-color: #ff5252;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: var(--background-darker);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 51, 51, 0.1);
+            width: 100%;
+            max-width: 450px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-darker));
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+        }
+
+        .logo p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 5px;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(255, 51, 51, 0.2);
+        }
+
+        .form-group .error-message {
+            color: var(--error-color);
+            font-size: 0.8rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-group.error input {
+            border-color: var(--error-color);
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .login-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .chat-bubble {
+            position: absolute;
+            background-color: rgba(255, 51, 51, 0.1);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .bubble-1 {
+            width: 80px;
+            height: 80px;
+            top: -20px;
+            right: -20px;
+        }
+
+        .bubble-2 {
+            width: 120px;
+            height: 120px;
+            bottom: -40px;
+            left: -40px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .logo h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="chat-bubble bubble-1"></div>
+        <div class="chat-bubble bubble-2"></div>
+        
+        <div class="logo">
+            <h1>FakeChat</h1>
+            <p>Crie sua conta e comece a conversar</p>
+        </div>
+        
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="name">Nome completo</label>
+                <input type="text" id="name" placeholder="Digite seu nome" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="username">Nome de usuário</label>
+                <input type="text" id="username" placeholder="Escolha um nome de usuário" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="Digite seu e-mail" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" placeholder="Crie uma senha segura" required>
+            </div>
+            
+            <div class="form-group" id="confirm-password-group">
+                <label for="confirm-password">Confirme sua senha</label>
+                <input type="password" id="confirm-password" placeholder="Digite a senha novamente" required>
+                <div class="error-message">As senhas não coincidem!</div>
+            </div>
+            
+            <button onclick="botao()" type="button" class="btn">Criar conta</button>
+        </form>
+        
+        <div class="login-link">
+            Já tem uma conta? <a href="/public/login.html">Faça login</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const confirmPasswordGroup = document.getElementById('confirm-password-group');
+            
+            // Verifica se as senhas coincidem
+            if (password !== confirmPassword) {
+                confirmPasswordGroup.classList.add('error');
+                return;
+            } else {
+                confirmPasswordGroup.classList.remove('error');
+            }
+            
+            // Se tudo estiver ok, pode enviar o formulário
+            alert('Conta criada com sucesso!');
+            // this.submit(); // Descomente esta linha para enviar o formulário de verdade
+        });
+
+        // Validação em tempo real
+        document.getElementById('confirm-password').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            const confirmPasswordGroup = document.getElementById('confirm-password-group');
+            
+            if (confirmPassword && password !== confirmPassword) {
+                confirmPasswordGroup.classList.add('error');
+            } else {
+                confirmPasswordGroup.classList.remove('error');
+            }
+        });
+
+        
+            function botao(){
+                window.location.href = "/public/chat.html"
+            }
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+    <h1>Chat fake</h1>
+
+    <form>
+        <div class="topo">
+            <input type="text" id="nome" placeholder="Nome de Úsuario">
+        </div>
+        <div class="mesagemp">
+        <ul id="mensagens"></ul>
+        </div>
+        <input type="text" id="mensagem" placeholder="Digite a sua mensagem">
+        <button>Enviar</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // Cria uma instância do socket.io
+        const socket = io();
+
+        // Selecionar o input nome do úsuario
+        const nomeInput = document.getElementById('nome')
+        
+        // Selecionar o input mensagem do úsuario
+        const mensagemInput = document.getElementById('mensagem')
+
+        // Seleciona a lista de mensagens
+        const mensagens = document.getElementById('mensagens')
+
+        // Adicionar um evento para o envio do formulário
+        document.querySelector('form').addEventListener('submit', event => {
+            // Previne o envio do formulário
+            event.preventDefault();
+
+            // Obtem o valor do input nome do úsuario
+            const nome = nomeInput.value;
+
+            //obtem o valor do input mensagem
+            const mensagem = mensagemInput.value;
+
+            // Verifica se os campos estão preenchidos
+            // verifica se os valores são válidos (espaço)
+            // Envia os eventos
+            // Remove os espaços
+
+            nome.trim() && mensagem.trim() && socket.emit('chat message', {nome, mensagem});
+
+            // Limpa o input da mensagem
+            mensagemInput.value = '';
+
+            // Desabilitar o input nome de úsuario
+            nomeInput.disabled = true;
+        });
+
+        // Adicionar o evento para cada mensagem recebida no servidor
+
+        // Evento para receber mensagens do servidor
+        socket.on('chat message', dados => {
+            const lista = document.createElement('li');
+
+            lista.classList.add(dados.nome === nomeInput.value ? 'minha-mensagem' : 'outra-mensagem');
+
+            lista.innerHTML = `<span class="nome-usuario">${dados.nome}</span>: ${dados.mensagem}`;
+
+            mensagens.appendChild(lista);
+            mensagens.scrollTop = mensagens.scrollHeight;
+            lista.scrollIntoView({ behavior: 'smooth', block: 'end'});
+        });
+
+    </script>
+</body>
+</html>

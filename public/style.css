@@ -1,0 +1,103 @@
+/* Estilo geral do corpo */
+body {
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpOwvJ0fwpr6XUQxkVXYmfna8Hwb2iY_n9Vg&s);
+    background-color: #121212; /* Fundo escuro */
+    color: #ffffff; /* Texto branco */
+    font-family: Arial, sans-serif; /* Fonte padrão */
+    margin: 0;
+    padding: 20px;
+}
+
+/* Estilo do título */
+h1 {
+    text-align: center;
+    color: #ff4757; /* Vermelho claro */
+}
+
+/* Estilo do formulário */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilo do input de nome de usuário */
+#nome {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #ff4757; /* Borda vermelha */
+    border-radius: 5px;
+    background-color: #1e1e1e; /* Fundo do input */
+    color: #ffffff; /* Texto branco */
+}
+
+/* Estilo do input de mensagem */
+#mensagem {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #ff4757; /* Borda vermelha */
+    border-radius: 5px;
+    background-color: #1e1e1e; /* Fundo do input */
+    color: #ffffff; /* Texto branco */
+}
+
+/* Estilo do botão */
+button {
+    padding: 10px 20px;
+    background-color: #ff4757; /* Fundo vermelho */
+    color: #ffffff; /* Texto branco */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Efeito ao passar o mouse sobre o botão */
+button:hover {
+    background-color: #e84118; /* Vermelho mais escuro */
+}
+
+/* Estilo da lista de mensagens */
+#mensagens {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Estilo de cada mensagem */
+#mensagens li {
+    margin-bottom: 10px; /* Espaçamento entre mensagens */
+    display: flex; /* Usar flexbox para alinhar mensagens */
+}
+
+/* MENSAGENS DO PRÓPRIO USUÁRIO */
+.minha-mensagem {
+    align-self: flex-end;
+    background-color: #ff4757;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 15px 15px 0 15px;
+    max-width: 60%;
+    word-wrap: break-word;
+    list-style: none;
+}
+
+/* MENSAGENS DE OUTROS USUÁRIOS */
+.outra-mensagem {
+    align-self: flex-start;
+    background-color: #575757;
+    color: rgb(255, 255, 255);
+    padding: 10px 15px;
+    border-radius: 15px 15px 15px 0;
+    max-width: 60%;
+    word-wrap: break-word;
+    list-style: none;
+}
+
+.mesagemp{
+    height: 73vh;
+    width: 100%;
+    overflow-y: auto;
+}
